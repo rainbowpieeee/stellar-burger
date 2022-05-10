@@ -1,0 +1,29 @@
+.burgerconstructor__conteiner {
+    width: 600px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.burgerconstructor__elements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 568px;
+    list-style: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 494px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-inline-start: 0;
+}
+
+.burgerconstructor__cost {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: end;
+    margin-right: 32px;
+}
