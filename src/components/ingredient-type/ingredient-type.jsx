@@ -1,13 +1,6 @@
 import React from "react";
-
 import { Ingredient } from "../ingredient/ingredient";
 import ColumnsStyle from './ingredient-type.module.css';
-
-
-
-
-
-
 
 export const IngredientType = React.forwardRef((props, ref) => {
     return (

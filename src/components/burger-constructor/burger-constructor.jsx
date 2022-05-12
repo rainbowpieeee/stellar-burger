@@ -3,8 +3,7 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { ConstructorItem } from '../constructor-item/constructor-item';
 import { OrderRegistration } from '../order-registration/order-registration';
 
-
-export function BurgerConstructor(props) {
+export function BurgerConstructor (props) {
     return (
         <div className={`pl-4   ml-10 pt-25 ${consructorStyles.burgerconstructor__conteiner}`}>
             <ConstructorElement type="top" isLocked={true} text="Краторная булка N-200i (верх)" price={200} thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"} />
@@ -16,16 +15,6 @@ export function BurgerConstructor(props) {
             </ul>
             <ConstructorElement type="bottom" isLocked={true} text="Краторная булка N-200i (низ)" price={200} thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"} />
             <OrderRegistration styles={`mt-10 ${consructorStyles.burgerconstructor__cost}`} cost={610}/>
-
-
-
-
-
-
         </div>
-
-
-
-
     )
 }
