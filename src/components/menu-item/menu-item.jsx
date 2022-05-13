@@ -1,6 +1,7 @@
 import React from "react";
 
-export function MenuItem (props) {
+
+export function MenuItem(props) {
     return (
         <li className={props.styles}>
             {props.children}

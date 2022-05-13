@@ -27,3 +27,10 @@
     align-self: end;
     margin-right: 32px;
 }
+
+.burgerconstructor__modalheader {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
+}
