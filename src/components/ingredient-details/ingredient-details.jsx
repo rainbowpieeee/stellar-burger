@@ -31,11 +31,11 @@ export function IngredientDetails(props) {
   )
 }
 
-IngredientDetails.propTypes = {
+IngredientDetails.propTypes = PropTypes.shape({
   name: ingredientsPropTypes.isRequired,
   image: ingredientsPropTypes.isRequired,
   proteins: ingredientsPropTypes.isRequired,
   fat: ingredientsPropTypes.isRequired,
   carbohydrates: ingredientsPropTypes.isRequired,
   calories: ingredientsPropTypes.isRequired
-}
+}).isRequired

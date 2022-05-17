@@ -18,5 +18,6 @@ export function OrderRegistration(props) {
 
 OrderRegistration.propTypes = {
   styles: PropTypes.string,
-  cost: PropTypes.number.isRequired
+  cost: PropTypes.number.isRequired,
+  clickHandler: PropTypes.func.isRequired
 }
