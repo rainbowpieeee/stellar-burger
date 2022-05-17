@@ -1,6 +1,6 @@
-
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import image from '../../images/Subtract.svg';
+import PropTypes from 'prop-types';
 
 export function OrderRegistration(props) {
   return (
@@ -14,4 +14,9 @@ export function OrderRegistration(props) {
     </div>
 
   )
+}
+
+OrderRegistration.propTypes = {
+  styles: PropTypes.string,
+  cost: PropTypes.number.isRequired
 }

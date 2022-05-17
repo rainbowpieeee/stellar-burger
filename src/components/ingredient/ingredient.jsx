@@ -25,5 +25,4 @@ Ingredient.propTypes = {
   description: PropTypes.string.isRequired,
   cost: PropTypes.number.isRequired,
   select: PropTypes.func.isRequired,
-
 }

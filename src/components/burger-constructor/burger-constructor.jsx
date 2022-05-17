@@ -11,7 +11,7 @@ import { OrderDetails } from '../order-details/order-details';
 export function BurgerConstructor(props) {
 
   return (
-    <div className={`pl-4   ml-10 pt-25 ${consructorStyles.burgerconstructor__conteiner}`}>
+    <div className={`pl-4 ml-10 pt-25 ${consructorStyles.burgerconstructor__conteiner}`}>
       <ConstructorElement type="top" isLocked={true} text="Краторная булка N-200i (верх)" price={200} thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"} />
       <ul className={`pr-4 mr-4 ${consructorStyles.burgerconstructor__elements}`}>
         {props.staff.map((item) => (
@@ -28,8 +28,9 @@ export function BurgerConstructor(props) {
   )
 }
 
-
-
 BurgerConstructor.propTypes = {
-  staff: ingredientsPropTypes.isRequired
+  staff: ingredientsPropTypes.isRequired,
+  makeOrder: PropTypes.func.isRequired,
+  closeByClick: PropTypes.func.isRequired,
+  isClicked: PropTypes.bool.isRequired
 }
