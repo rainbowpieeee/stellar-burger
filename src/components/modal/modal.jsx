@@ -17,6 +17,7 @@ export function Modal(props) {
   }
   ///закрытие попапа по нажатию на оверлей
   function closeByClickOverlay(evt) {
+
     evt.target === modalRef.current && props.closeModal()
   }
 
@@ -27,7 +28,7 @@ export function Modal(props) {
       document.removeEventListener('keydown', closeByEsc)
 
     }
-  })
+  }, [])
 
   return ReactDOM.createPortal(
     (<div className={popupStyles.popup} >

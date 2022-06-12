@@ -6,7 +6,28 @@
     align-items: center;
 }
 
+.burgerconstructor__dropconteiner {
+    width: 600px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(76, 76, 255, 1)
+}
+
 .burgerconstructor__elements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 568px;
+    list-style: none;
+    height: 494px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-inline-start: 0;
+}
+
+.burgerconstructor__elementswithscroll {
     display: flex;
     flex-direction: column;
     align-items: center;

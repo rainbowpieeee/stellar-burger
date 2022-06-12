@@ -4,9 +4,16 @@ import ingredientsStyles from './burger-ingredients.module.css';
 import { IngredientType } from '../ingredient-type/ingredient-type';
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { ingredientsPropTypes } from "../utils/type";
+import { useSelector, useDispatch } from 'react-redux';
+import { CLICK_ON_CLOSE_BUTTON } from "../../services/actions/ingredient";
 
-export function BurgerIngredients(props) {
+
+
+export function BurgerIngredients() {
+  const { currentItem, itemIsClicked } = useSelector(state => state.currentSelect);
+  const { ingredients } = useSelector(state => state.burgerData);
+
+  const dispatch = useDispatch();
   const [current, setCurrent] = React.useState('Булки')
   const bunsRef = React.useRef();
   const soucesRef = React.useRef();
@@ -49,19 +56,14 @@ export function BurgerIngredients(props) {
         </li>
       </ul>
       <div className={ingredientsStyles.burger__ingredients} onScroll={e => { determineElementPosition(e) }}>
-        <IngredientType ingredientName='Булки' data={props.buns} ref={bunsRef} selectItem={props.selectItem} />
-        <IngredientType ingredientName='Соусы' data={props.souce} ref={soucesRef} selectItem={props.selectItem} />
-        <IngredientType ingredientName='Начинки' data={props.filling} ref={fillingsRef} selectItem={props.selectItem} />
+        <IngredientType ingredientName='Булки' data={ingredients.filter(item => item.type === 'bun')} ref={bunsRef} />
+        <IngredientType ingredientName='Соусы' data={ingredients.filter(item => item.type === 'sauce')} ref={soucesRef} />
+        <IngredientType ingredientName='Начинки' data={ingredients.filter(item => item.type === 'main')} ref={fillingsRef} />
       </div>
-      {props.isClicked && <Modal headerText={'Детали ингридиента'} modalStyles={`text text_type_main-large`} modalHeaderStyles={`${ingredientsStyles.modal__header} mt-10 mr-10 ml-10`} closeModal={props.closeModal}><IngredientDetails {...props.ingredients} /></Modal>}
+      {itemIsClicked && <Modal headerText={'Детали ингридиента'} modalStyles={`text text_type_main-large`} modalHeaderStyles={`${ingredientsStyles.modal__header} mt-10 mr-10 ml-10`} closeModal={() => { dispatch({ type: CLICK_ON_CLOSE_BUTTON }) }}><IngredientDetails {...currentItem} /></Modal>}
     </div>
   )
 }
 
-BurgerIngredients.propTypes = {
-  buns: ingredientsPropTypes.isRequired,
-  souce: ingredientsPropTypes.isRequired,
-  filling: ingredientsPropTypes.isRequired
-}
 
 
