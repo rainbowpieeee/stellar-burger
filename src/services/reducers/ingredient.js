@@ -21,6 +21,6 @@ export const ingredientReducer = (state = currentChoiceInitialState, action) => 
                 currentItem: {}
             }
         default:
-            return { state }
+            return state
     }
 }

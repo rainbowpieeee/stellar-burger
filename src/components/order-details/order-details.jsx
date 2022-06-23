@@ -1,8 +1,9 @@
 import orderDetailsStyles from './order-details.module.css';
 import orderDoneImage from '../../images/done.svg';
-
+import PropTypes from 'prop-types';
 
 export function OrderDetails(props) {
+
   return (
     <div className={`${orderDetailsStyles.order__conteiner} mt-30 mb-30`}>
       <h3 className='mb-8 text text_type_digits-large'>{props.number}</h3>
@@ -13,4 +14,8 @@ export function OrderDetails(props) {
     </div>
 
   )
+}
+
+OrderDetails.propTypes = {
+  number: PropTypes.number.isRequired
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Ingredient } from "../ingredient/ingredient";
 import сolumnsStyle from './ingredient-type.module.css';
 import PropTypes from 'prop-types';
-import { ingredientsPropTypes } from "../utils/type";
+import { ingredientsPropTypes } from "../../utils/type";
 
 
 ///компонент контейнер для отрисовки определенного типа ингридиентов

@@ -1,4 +1,4 @@
-import Api from "../../components/utils/Api";
+import Api from "../../utils/Api";
 
 export const OPEN_ORDER_POPUP = 'OPEN_ORDER_POPUP';
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';

@@ -10,7 +10,7 @@ export const constructorReducer = (state = constructorInitialState, action) => {
         case ADD_BUN:
             return {
                 ...state,
-                bun: action.bunItem ? {...action.bunItem, amount: 1 } : state.bun
+                bun: action.bunItem ? {...action.bunItem, amount: 2 } : state.bun
             }
         case ADD_ITEM:
             return {
@@ -35,7 +35,7 @@ export const constructorReducer = (state = constructorInitialState, action) => {
                 bun: ''
             }
         default:
-            return {...state }
+            return state
 
     }
 }

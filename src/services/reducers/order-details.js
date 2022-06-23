@@ -6,7 +6,8 @@ const orderInitialState = {
     orderFailure: false,
     orderNumber: null,
     wholeOrder: {},
-    orderButtonIsClicked: false
+    orderButtonIsClicked: false,
+
 }
 
 
@@ -15,14 +16,17 @@ export const orderReducer = (state = orderInitialState, action) => {
         case OPEN_ORDER_POPUP:
             return {
                 ...state,
-                orderButtonIsClicked: true
+                orderButtonIsClicked: true,
+
             }
         case CLOSE_ORDER_POPUP:
             return {
                 ...state,
                 orderButtonIsClicked: false,
+                requestIsSuccessed: false,
                 orderNumber: null,
-                wholeOrder: {}
+                wholeOrder: {},
+                buttonState: false
             }
         case GET_ORDER_REQUEST:
             return {
@@ -45,6 +49,6 @@ export const orderReducer = (state = orderInitialState, action) => {
                 orderNumber: null,
             }
         default:
-            return { state }
+            return state
     }
 }

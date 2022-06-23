@@ -1,4 +1,4 @@
-import { BURGER_DATA_REQUEST, BURGER_DATA_SUCCESS, BURGER_DATA_ERROR, ADD_AMMOUNT, DECREASE_AMOUNT } from "../actions/burger-ingredients";
+import { BURGER_DATA_REQUEST, BURGER_DATA_SUCCESS, BURGER_DATA_ERROR, ADD_AMMOUNT, DECREASE_AMOUNT, CLEAN_INGREDIENTS_AMOUNTS } from "../actions/burger-ingredients";
 
 const initialState = {
     ingredients: [],
@@ -41,7 +41,14 @@ export const burgerDataReducer = (state = initialState, action) => {
                     return item._id === action.id ? {...item, amount: item.amount - 1 } : item
                 })
             }
+        case CLEAN_INGREDIENTS_AMOUNTS:
+            return {
+                ...state,
+                ingredients: [...state.ingredients].map(item => {
+                    return {...item, amount: 0 }
+                })
+            }
         default:
-            return {...state };
+            return state;
     }
 }

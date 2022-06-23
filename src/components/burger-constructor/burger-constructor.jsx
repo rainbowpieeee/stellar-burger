@@ -4,14 +4,14 @@ import { ConstructorItem } from '../constructor-item/constructor-item';
 import { OrderRegistration } from '../order-registration/order-registration';
 import { useDrop } from 'react-dnd';
 import { ADD_ITEM, ADD_BUN, DELETE_INGREDIENT, CLEAN_STATE } from '../../services/actions/burger-consructor';
-import { ADD_AMMOUNT, DECREASE_AMOUNT } from '../../services/actions/burger-ingredients';
+import { ADD_AMMOUNT, DECREASE_AMOUNT, CLEAN_INGREDIENTS_AMOUNTS } from '../../services/actions/burger-ingredients';
 import { Modal } from '../modal/modal';
 import React from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import { useSelector, useDispatch } from 'react-redux';
 import { OPEN_ORDER_POPUP, CLOSE_ORDER_POPUP } from '../../services/actions/order-details';
 import { getOrderNumber } from '../../services/actions/order-details';
-import { calculateCost } from '../utils/utils';
+import { calculateCost } from '../../utils/utils';
 
 
 
@@ -23,9 +23,9 @@ export function BurgerConstructor() {
   const { elements, bun } = useSelector(state => state.constructorState);
 
   ///вычисляем значения для ключей
-  const uid = React.useMemo(() => {
+  function uid() {
     return Date.now() * Math.random()
-  }, [elements])
+  }
 
   const [{ isDrag }, dropTarget] = useDrop({
     accept: 'item',
@@ -36,7 +36,7 @@ export function BurgerConstructor() {
       dispatch({
         type: ADD_ITEM, data: ingredients.filter(item => {
           return item._id === itemId.id && item.type !== 'bun'
-        }).map((item) => { return { ...item, uid: uid } })
+        }).map((item) => { return { ...item, uid: uid() } })
       })
       dispatch({
         type: ADD_BUN, bunItem: ingredients.find(item => {
@@ -64,7 +64,8 @@ export function BurgerConstructor() {
   const orderPopupClose = React.useCallback(() => {
     dispatch({ type: CLOSE_ORDER_POPUP });
     dispatch({ type: CLEAN_STATE });
-  })
+    dispatch({ type: CLEAN_INGREDIENTS_AMOUNTS })
+  }, [dispatch])
 
   const style = isDrag ? consructorStyles.burgerconstructor__dropconteiner : consructorStyles.burgerconstructor__conteiner
   const cartStyle = elements.length >= 6 ? consructorStyles.burgerconstructor__elementswithscroll : consructorStyles.burgerconstructor__elements
@@ -73,8 +74,8 @@ export function BurgerConstructor() {
 
   return (
     elements && <div ref={dropTarget} className={`pl-4   ml-10 pt-25 ${style}`}>
-      {bun && Array.of(bun).map(item => (
-        <ConstructorElement key={uid} type="top" isLocked={true} text={item.name} price={item.price} thumbnail={item.image_mobile} />
+      {bun && Array.of(bun).map((item, index) => (
+        <ConstructorElement key={index} type="top" isLocked={true} text={`${item.name} (верх)`} price={item.price} thumbnail={item.image_mobile} />
       ))
       }
       <ul className={`pr-4 mr-4 ${cartStyle}`}>
@@ -83,8 +84,8 @@ export function BurgerConstructor() {
             <ConstructorElement id={item.uid} text={item.name} thumbnail={item.image_mobile} price={item.price} handleClose={() => itemRemove(item.uid, item._id)} />
           </ConstructorItem>))}
       </ul>
-      {bun && Array.of(bun).map(item => (
-        <ConstructorElement key={uid} type="bottom" isLocked={true} text={item.name} price={item.price} thumbnail={item.image_mobile} />))}
+      {bun && Array.of(bun).map((item, index) => (
+        <ConstructorElement key={index} type="bottom" isLocked={true} text={`${item.name} (низ)`} price={item.price} thumbnail={item.image_mobile} />))}
       <OrderRegistration clickHandler={orderDetailsRequestSending} styles={`mt-10 ${consructorStyles.burgerconstructor__cost}`} cost={calculateCost(elements, bun.price)} />
       {orderButtonIsClicked && requestIsSuccessed && <Modal closeModal={orderPopupClose} modalHeaderStyles={consructorStyles.burgerconstructor__modalheader}><OrderDetails number={orderNumber} /></Modal>}
     </div >

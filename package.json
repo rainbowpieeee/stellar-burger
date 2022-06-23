@@ -1,8 +1,8 @@
 {
-    "name": "stellar-burger",
+    "name": "react-burger",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://rainbowpieeee.github.io/stellar-burger/",
+    "homepage": " https://george051191.github.io/stellar-burger/",
     "dependencies": {
         "@testing-library/jest-dom": "^5.15.1",
         "@testing-library/react": "^11.2.7",
@@ -14,12 +14,12 @@
         "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
         "gh-pages": "^3.2.3",
         "react": "^17.0.2",
-        "react-dnd": "^16.0.1",
-        "react-dnd-html5-backend": "^16.0.1",
+        "react-dnd": "^14.0.4",
+        "react-dnd-html5-backend": "^14.0.2",
         "react-dom": "^17.0.2",
-        "react-redux": "^8.0.2",
+        "react-redux": "^7.2.6",
         "react-scripts": "4.0.3",
-        "redux": "^4.2.0",
+        "redux": "^4.1.2",
         "redux-thunk": "^2.4.1",
         "typescript": "^4.5.2",
         "web-vitals": "^1.1.2"
