@@ -18,8 +18,6 @@ const composeEnhancers =
     : compose;
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
-
-
 export const state = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
@@ -35,6 +33,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

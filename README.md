@@ -4,7 +4,7 @@
 
 *Проект полностью выполнен с помощью фреймворка React*
 *Подключена библиотека Redux,реализована функциональность перетаскивания мышью элементов интерфейса с помощью билиотеки React Drag and Drop*
-[Ссылка на проект]( https://george051191.github.io/stellar-burger/)
+[Ссылка на проект]( https://rainbowpeeee.github.io/stellar-burger/)
 
 **Figma**
 
