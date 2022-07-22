@@ -21,3 +21,8 @@
 .ingredient__text {
     text-align: center;
 }
+
+.link {
+    color: inherit;
+    text-decoration: none;
+}

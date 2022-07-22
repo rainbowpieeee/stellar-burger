@@ -6,6 +6,28 @@
     margin: 0 auto;
 }
 
+.link {
+    text-decoration: none;
+}
+
+.navlink svg {
+    fill: #8585AD
+}
+
+.navlink {
+    text-decoration: none;
+    color: rgba(133, 133, 173, 1)
+}
+
+.activenavlink {
+    text-decoration: none;
+    color: rgba(242, 242, 243, 1);
+}
+
+.activenavlink svg {
+    fill: #F2F2F3;
+}
+
 .header__navigation {
     width: 1920px;
     list-style: none;

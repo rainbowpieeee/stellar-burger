@@ -7,3 +7,10 @@
     background-color: #8585AD;
     height: 60px;
 }
+
+
+/* a:-webkit-any-link {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+} */

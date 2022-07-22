@@ -8,9 +8,8 @@
     margin: 0 auto;
 }
 
-.app__constructor {
+.modal__header {
     display: flex;
     flex-direction: row;
-    align-items: start;
-    justify-content: center;
+    justify-content: space-between;
 }

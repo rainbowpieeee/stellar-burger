@@ -1,0 +1,52 @@
+.profileconteiner {
+    margin-top: 120px;
+    display: flex;
+    flex-direction: row;
+    width: 1260px;
+}
+
+.navmenu {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.listelement {
+    width: 320px;
+    height: 64px;
+    text-align: start;
+    display: flex;
+    align-items: center;
+}
+
+.currentlinktext {
+    text-decoration: none;
+    color: rgba(242, 242, 243, 1)
+}
+
+.linktext {
+    color: rgba(133, 133, 173, 1);
+    text-decoration: none;
+}
+
+.linktext:hover {
+    color: rgba(242, 242, 243, 1)
+}
+
+.navconteiner {
+    display: flex;
+    flex-direction: column;
+}
+
+.blockquote {
+    margin-bottom: 0;
+    width: 320px;
+}
