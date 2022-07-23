@@ -102,7 +102,6 @@ export const refreshUser: AppThunk = (email: string, password: string, name: str
   return function (dispatch: TAppDispatch) {
     Api.refreshUser(email, password, name, token)
       .then(res => dispatch({ type: CREATE_USER_SUCCESS, payload: res }))
-      .catch(err => { console.log(err.message); dispatch({ type: CREATE_USER_ERROR }) })
   }
 }
 
@@ -110,8 +109,8 @@ export const getUserData: AppThunk = (token: string, refresh: string, callback: 
   return function (dispatch: TAppDispatch) {
     dispatch({ type: USER_DATA_REQUEST });
     Api.getUser(token, refresh, callback)
-      .then(res => { dispatch({ type: USER_DATA_SUCCESS, email: res?.user.email, name: res?.user.name }); })
-      .catch(err => { console.log(err.message); dispatch({ type: USER_DATA_ERROR }) })
+      .then(res => { dispatch({ type: USER_DATA_SUCCESS, email: res?.user.email, name: res?.user.name }); } )
+
   }
 }
 
@@ -122,7 +121,7 @@ export const getPasswordReset: AppThunk = (email: string, token: string) => {
     dispatch({ type: RESET_REQUEST });
     Api.setPasswordReset(email, token)
       .then(res => dispatch({ type: RESET_SUCCESS, success: res.success }))
-      .catch(err => { console.log(err.message); dispatch({ type: RESET_ERROR }) })
+      .catch(err => dispatch({ type: RESET_ERROR }))
   }
 }
 
@@ -131,7 +130,7 @@ export const setNewPassword: AppThunk = (password: string, token: string) => {
     dispatch({ type: SET_PASSWORD_REQUEST })
     Api.setNewPassword(password, token)
       .then(res => dispatch({ type: SET_PASSWORD_SUCCESS, success: res.success }))
-      .catch(err => { console.log(err.message); dispatch({ type: SET_PASSWORD_ERROR }) })
+      .catch(err => dispatch({ type: SET_PASSWORD_ERROR }))
   }
 }
 
@@ -144,7 +143,7 @@ export const createUser: AppThunk = (email: string, password: string, name: stri
         setCookie('refreshToken', res.refreshToken);
         dispatch({ type: CREATE_USER_SUCCESS, payload: res })
       })
-      .catch(err => { console.log(err.message); dispatch({ type: CREATE_USER_ERROR }) })
+      .catch(err => dispatch({ type: CREATE_USER_ERROR }))
   }
 }
 
@@ -157,7 +156,7 @@ export const loginUser: AppThunk = (email: string, password: string, token: stri
         setCookie('refreshToken', res.refreshToken);
         dispatch({ type: LOGIN_SUCCESS, email: res.user.email, name: res.user.name, status: res.success })
       })
-      .catch(err => { console.log(err.message); dispatch({ type: LOGIN_ERROR }) })
+      .catch(err => dispatch({ type: LOGIN_ERROR }))
   }
 }
 
