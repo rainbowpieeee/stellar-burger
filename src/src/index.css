@@ -1,0 +1,16 @@
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    height: 60px;
+}
+
+
+/* a:-webkit-any-link {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+} */
