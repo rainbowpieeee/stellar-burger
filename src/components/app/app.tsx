@@ -86,11 +86,11 @@ const App: FunctionComponent = () => {
             <Route path='/ingredients/:id' exact={true} >
               <IngredientPage />
             </Route>
-            <Route  >
-              <div>
-                <h1>Empty Page</h1>
-              </div>
-            </Route>
+            // <Route  >
+            //   <div>
+            //     <h1>Empty Page</h1>
+            //   </div>
+            // </Route>
           </Switch>
 
           {background && <Route path='/ingredients/:id' >
