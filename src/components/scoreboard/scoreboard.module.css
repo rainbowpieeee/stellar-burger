@@ -1,0 +1,57 @@
+.conteiner {
+    width: 580px;
+    height: 626px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-top: 100px;
+}
+
+.statusbox {
+    display: flex;
+    width: 100%;
+    height: 206px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.box {
+    width: 272px;
+    height: 206px;
+}
+
+.list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    gap: 8px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 152px;
+    width: 82px;
+}
+
+.statusdone {
+    color: rgba(0, 204, 204, 1);
+    width: 54px;
+    height: 23px;
+}
+
+.digits {
+    color: rgba(242, 242, 243, 1);
+    text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+    margin-top: 0;
+}
+
+.ulbox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    max-height: 152px;
+    max-width: 272px;
+    overflow: overlay;
+    flex-flow: wrap;
+}

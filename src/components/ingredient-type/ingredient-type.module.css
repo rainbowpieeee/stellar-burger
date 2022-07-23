@@ -1,0 +1,8 @@
+.column {
+    list-style: none;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 272px 272px;
+    column-gap: 24px;
+    box-sizing: border-box;
+}
