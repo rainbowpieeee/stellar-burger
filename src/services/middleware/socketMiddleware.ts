@@ -11,10 +11,10 @@ export const socketMiddleware = (wsUrl: string, wsActions: { [key in any]: any }
     return (next: (A: AnyAction) => void) => (action: AnyAction) => {
       const { dispatch } = store;
       const { type, payload } = action;
-      const { wsStart, wsSuccess, wsError, wsMessage, wsClose } = wsActions;
+      const { wsStart, wsSuccess, wsError, wsMessage, wsClose, WS_CONNECTION_CLOSED, WS_SEND_MESSAGE } = wsActions;
       const accessToken = isAuth && getCookie('token')
       if (type === wsStart) {
-        socket = isAuth ? new WebSocket(`${wsUrl}?token=${accessToken}`) : new WebSocket(`${wsUrl}/all`);
+        socket = isAuth ? new WebSocket(`${wsUrl}?token=${accessToken}`) : new WebSocket(`${wsUrl}${payload}`);
       }
 
 

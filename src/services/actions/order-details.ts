@@ -32,10 +32,6 @@ export interface ICloseOrderPopupAction {
 export type TOrderDetailsActions = IOpenOrderPopupAction | IGetOrderRequestAction | IGetOrderSuccessAction | IGetOrderErrorAction | ICloseOrderPopupAction;
 
 
-
-
-
-
 export const getOrderNumber: AppThunk = (idData: string[], token: string, refresh: string, callback:(res:any)=> void) => {
   return function (dispatch: TAppDispatch) {
     dispatch({ type: GET_ORDER_REQUEST })
