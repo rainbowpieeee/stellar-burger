@@ -43,6 +43,7 @@ export const getOrderNumber: AppThunk = (idData: string[], token: string, refres
       .then(res => {
         dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number, orderData: res, result: res.success })
       })
+      .catch(err => { console.log(err); dispatch({ type: GET_ORDER_ERROR }) })
 
 
   }
