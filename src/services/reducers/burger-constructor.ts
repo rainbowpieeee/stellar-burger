@@ -1,48 +1,73 @@
-import { ADD_ITEM, ADD_BUN, DELETE_INGREDIENT, CLEAN_STATE, REORDER_INGREDIENTS } from "../constants";
-import { TBurgerConstructorActions } from "../actions/burger-consructor";
-import { TIngredient } from "../types/data"
+import {
+  ADD_INGREDIENT,
+  DELETE_ITEM,
+  ADD_BUN,
+  REORDER_INGREDIENTS,
+  SET_DEFAULT_VALUE_INGREDIENTS,
+  TBurgerConstructorActions,
+} from "../action/burger-constructor";
+import { TIngredientWithUniqKey } from "../types/data";
 
-type TBurgerConstructorState = {
-  elements: Array<TIngredient>;
-  bun: TIngredient | { [key in any]: never };
-}
+type TConstructorState = {
+  ingredients: Array<TIngredientWithUniqKey>;
+};
 
-const constructorInitialState: TBurgerConstructorState = {
-  elements: [],
-  bun: {}
-}
+const constructorInitialState: TConstructorState = {
+  ingredients: [],
+};
 
-export const constructorReducer = (state = constructorInitialState, action: TBurgerConstructorActions): TBurgerConstructorState => {
+export const burgerConstructorReducer = (
+  state = constructorInitialState,
+  action: TBurgerConstructorActions
+) => {
   switch (action.type) {
-    case ADD_BUN:
+    case ADD_INGREDIENT: {
       return {
         ...state,
-        bun: action.bunItem ? { ...action.bunItem, amount: 2 } : state.bun
-      }
-    case ADD_ITEM:
-      return {
-        ...state,
-        elements: [...state.elements, ...action.data]
-      }
-    case DELETE_INGREDIENT:
-      return {
-        ...state,
-        elements: [...state.elements].filter(item => { return item.uid !== action.id })
+        ingredients: [...state.ingredients, action.payload],
+      };
+    }
+    case ADD_BUN: {
+      const indexElement = [...state.ingredients].findIndex((element) => {
+        return element.type === "bun";
+      });
+      // Если булки нет в массиве, то добавляем
+      // Если есть, то ищем индекс и меняем
+      const res =
+        indexElement === -1
+          ? [action.payload, ...state.ingredients]
+          : [
+              ...state.ingredients.slice(0, indexElement),
+              action.payload,
+              ...state.ingredients.slice(indexElement + 1),
+            ];
 
-      }
-    case REORDER_INGREDIENTS:
       return {
         ...state,
-        elements: action.data
-      }
-    case CLEAN_STATE:
+        ingredients: res,
+      };
+    }
+    case DELETE_ITEM: {
       return {
         ...state,
-        elements: [],
-        bun: {}
-      }
-    default:
-      return state
-
+        ingredients: [...state.ingredients].filter((element) => {
+          return element.uuid !== action.id;
+        }),
+      };
+    }
+    case REORDER_INGREDIENTS: {
+      return {
+        ...state,
+        ingredients: [...action.payload],
+      };
+    }
+    case SET_DEFAULT_VALUE_INGREDIENTS: {
+      return {
+        ...constructorInitialState,
+      };
+    }
+    default: {
+      return state;
+    }
   }
-}
+};

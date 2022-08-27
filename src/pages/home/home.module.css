@@ -1,0 +1,14 @@
+.main {
+  display: flex;
+  justify-content: center;
+  gap: 0 40px;
+}
+
+.mainColumn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: calc(100vh - 88px);
+}
+

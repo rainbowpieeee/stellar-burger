@@ -1,57 +1,22 @@
-.burgerconstructor__conteiner {
-    width: 600px;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.burgerConstructor {
+  max-width: 592px;
+  width: 100%;
+  position: relative;
+}
+.burgerConstructor__total {
+  align-items: center;
+  justify-content: flex-end;
+  display: flex;
+  position: absolute;
+  bottom: 20px;
+  right: 0;
 }
 
-.burgerconstructor__dropconteiner {
-    width: 600px;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid rgba(76, 76, 255, 1)
+.burgerConstructor__total svg {
+  height: 33px;
+  width: 33px;
 }
 
-.burgerconstructor__elements {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 568px;
-    list-style: none;
-    height: 494px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-inline-start: 0;
-}
-
-.burgerconstructor__elementswithscroll {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 568px;
-    list-style: none;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 494px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-inline-start: 0;
-}
-
-.burgerconstructor__cost {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-self: end;
-    margin-right: 32px;
-}
-
-.burgerconstructor__modalheader {
-    position: absolute;
-    top: 60px;
-    right: 40px;
-    cursor: pointer;
+.buttonOrder > button{
+  min-width: 214px;
 }

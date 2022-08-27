@@ -1,62 +1,96 @@
-import { BURGER_DATA_REQUEST, BURGER_DATA_SUCCESS, BURGER_DATA_ERROR, ADD_AMMOUNT, DECREASE_AMOUNT, CLEAN_INGREDIENTS_AMOUNTS } from "../constants";
-import { TIngredient } from '../types/data';
-import { TBurgerIngredientsActions } from '../actions/burger-ingredients';
+import {
+  BURGER_INGREDIENTS_FAILED,
+  BURGER_INGREDIENTS_SUCCESS,
+  BURGER_INGREDIENTS_REQUEST,
+  INCREMENT_INGREDIENTS,
+  INCREMENT_BUN,
+  DECREMENT_INGREDIENTS,
+  RESET_QTY_INGREDIENTS,
+  TBurgerIngredientsActions,
+} from "../action/burger-ingredients";
+import { TIngredient } from "../types/data";
 
-type TBurgerIngredientsState = {
-  ingredients: Array<TIngredient>;
-  dataRequest: boolean;
-  dataRequestFailed: boolean;
-}
+type TIngredientsState = {
+  burgerIngredients: ReadonlyArray<TIngredient>;
+  burgerIngredientsRequest: boolean;
+  burgerIngredientsFailed: boolean;
+};
 
-const initialState: TBurgerIngredientsState = {
-  ingredients: [],
-  dataRequest: true,
-  dataRequestFailed: false
-}
+const ingredientsInitialState: TIngredientsState = {
+  burgerIngredients: [],
+  burgerIngredientsRequest: false,
+  burgerIngredientsFailed: false,
+};
 
-export const burgerDataReducer = (state = initialState, action: TBurgerIngredientsActions): TBurgerIngredientsState => {
+export const burgerIngredientsReducer = (
+  state = ingredientsInitialState,
+  action: TBurgerIngredientsActions
+) => {
   switch (action.type) {
-    case BURGER_DATA_REQUEST:
+    case BURGER_INGREDIENTS_REQUEST: {
+      return { ...state, ingredientsInitialState: true };
+    }
+    case BURGER_INGREDIENTS_SUCCESS: {
+      return {
+        burgerIngredients: action.payload,
+        burgerIngredientsRequest: false,
+        burgerIngredientsFailed: false,
+      };
+    }
+    case BURGER_INGREDIENTS_FAILED: {
       return {
         ...state,
+        burgerIngredientsRequest: false,
+        burgerIngredientsFailed: true,
+      };
+    }
+    case INCREMENT_INGREDIENTS: {
+      return {
+        ...state,
+        burgerIngredients: [...state.burgerIngredients].map((element) =>
+          element._id === action.payload._id
+            ? { ...element, qty: element.qty! + 1 || 1 }
+            : element
+        ),
+      };
+    }
+    case DECREMENT_INGREDIENTS: {
+      return {
+        ...state,
+        burgerIngredients: [...state.burgerIngredients].map((element) =>
+          element._id === action.payload._id
+            ? { ...element, qty: element.qty! - 1 || null }
+            : element
+        ),
+      };
+    }
+    // Булка может быть одна
+    // Если мы перетащили булку, то добавляем ей qty = 2(так как их две)
+    // Остальным булкам убираем qty = null
+    // Если это не булка, ничего не делаем
+    case INCREMENT_BUN: {
+      return {
+        ...state,
+        burgerIngredients: [...state.burgerIngredients].map((element) =>
+          element._id === action.payload._id && element.type === "bun"
+            ? { ...element, qty: 2 }
+            : element.type === "bun"
+            ? { ...element, qty: null }
+            : element
+        ),
+      };
+    }
 
+    case RESET_QTY_INGREDIENTS: {
+      return {
+        ...state,
+        burgerIngredients: [...state.burgerIngredients].map((element) => {
+          return { ...element, qty: null };
+        }),
       };
-    case BURGER_DATA_SUCCESS:
-      return {
-        ...state,
-        ingredients: action.data.map(item => { return { ...item, amount: 0 } }),
-        dataRequest: false
-      };
-    case BURGER_DATA_ERROR:
-      return {
-        ...state,
-        ingredients: [],
-        dataRequest: false,
-        dataRequestFailed: true,
-
-      };
-    case ADD_AMMOUNT:
-      return {
-        ...state,
-        ingredients: [...state.ingredients].map(item => {
-          return item._id === action.id && item.type !== 'bun' ? { ...item, amount: item.amount + 1 } : item
-        })
-      }
-    case DECREASE_AMOUNT:
-      return {
-        ...state,
-        ingredients: [...state.ingredients].map(item => {
-          return item._id === action.id ? { ...item, amount: item.amount - 1 } : item
-        })
-      }
-    case CLEAN_INGREDIENTS_AMOUNTS:
-      return {
-        ...state,
-        ingredients: [...state.ingredients].map(item => {
-          return { ...item, amount: 0 }
-        })
-      }
-    default:
+    }
+    default: {
       return state;
+    }
   }
-}
+};

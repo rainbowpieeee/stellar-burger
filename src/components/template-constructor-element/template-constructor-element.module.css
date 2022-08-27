@@ -1,0 +1,34 @@
+.templateConstructorElement {
+  padding: 16px 24px;
+  display: inline-block;
+  border-radius: var(--common-border-radius-s);
+  background: none;
+  border: 2px dashed #8b00ff;
+  max-width: 100%;
+  min-height: 48px;
+  font-family: "Jet Brains Mono";
+  font-size: 16px;
+  line-height: 24px;
+  color: #f2f2f3;
+  flex-grow: 1;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
+.templateConstructorElement {
+  padding: 16px 24px;
+  border-radius: var(--common-border-radius-s);
+  max-width: 488px;
+  min-height: 48px;
+  font-family: "Jet Brains Mono";
+  font-size: 16px;
+  line-height: 24px;
+  color: #f2f2f3;
+  flex-grow: 1;
+  border: 2px dashed #8b00ff;
+  align-items: center;
+}
+

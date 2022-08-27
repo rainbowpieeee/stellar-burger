@@ -1,23 +1,14 @@
-.constructoritem__element {
-    width: 568px;
-    height: 80px;
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    list-style: none;
+.burgerConstructorList__innerItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0px 10px;
+  padding-bottom: 16px;
 }
 
-.constructoritem__hoverelement {
-    width: 568px;
-    height: 80px;
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    list-style: none;
-    border: 1px solid rgba(76, 76, 255, 1);
-    border-radius: var(--common-border-radius-s);
+.wrapperConstructorElement {
+  width: 100%;
+  display: inherit;
+  height: 100%;
+  border-radius: 44px;
 }

@@ -1,27 +1,24 @@
-.modal__conteiner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.ingredientDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.modal__image {
-    width: 480px;
-    height: 240px;
+.ingredientDetails__title {
+  align-self: flex-start;
+  padding-top: 55px;
 }
 
-.modal__list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: row;
+.ingredientDetails__nutritionalValue {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0 0 60px 0;
+  margin: 0;
+  gap: 0 20px;
 }
 
-.modal__listelement {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.modal__text {
-    margin-top: 0;
+.ingredientDetails__nutritionaValueItem {
+  text-align: center;
 }

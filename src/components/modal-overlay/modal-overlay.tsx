@@ -1,13 +1,13 @@
-import overlayStyles from './modal-overlay.module.css';
-import React from 'react';
-import { IModalOverlay } from '../../utils/interfaces';
+import styleModal from "./modal-overlay.module.css";
+import { FC } from "react";
+import { TModalOverlay } from "../../services/types/data";
 
-export const ModalOverlay = React.forwardRef<HTMLDivElement, IModalOverlay>((props, ref) => {
-
+const ModalOverlay: FC<TModalOverlay> = ({ children, onClose }) => {
   return (
-    <div ref={ref} className={overlayStyles.overlay} onClick={props.closeFunction}>
+    <div className={`${styleModal.overlay}`} onClick={onClose}>
+      {children}
     </div>
-  )
-})
+  );
+};
 
-
+export default ModalOverlay;

@@ -1,47 +1,43 @@
+import style from "./modal.module.css";
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import { useEffect, FC } from "react";
 import ReactDOM from "react-dom";
-import React, { FunctionComponent } from "react";
-import popupStyles from './modal.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ModalOverlay } from '../modal-overlay/modal-overlay';
-import { useEffect } from "react";
+import { TModal } from "../../services/types/data";
 
-import { IModal } from "../../utils/interfaces";
+const modalRoot = document.getElementById("modal") as HTMLDivElement;
 
-export const Modal:FunctionComponent<IModal> = (props) => {
-
-  const modalRef = React.useRef<HTMLDivElement>(null);
-  const modalRoot = document.getElementById('modal-root');
-
-  ///закрытие попапа по нажатию на Esc
-  function closeByEsc(evt: KeyboardEvent) {
-    evt.key === 'Escape' && props.closeModal()
-  }
-  ///закрытие попапа по нажатию на оверлей
-  function closeByClickOverlay(evt: React.MouseEvent<HTMLDivElement>) {
-
-    evt.target === modalRef.current && props.closeModal()
-  }
-
+const Modal: FC<TModal> = ({ title, onClose, children }) => {
   useEffect(() => {
-    document.addEventListener('keydown', closeByEsc)
-
+    const closeOnEscape = (e: KeyboardEvent): void => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", closeOnEscape);
     return () => {
-      document.removeEventListener('keydown', closeByEsc)
-
-    }
-  }, [])
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, []);
 
   return ReactDOM.createPortal(
-    (<div className={popupStyles.popup} >
-      <ModalOverlay ref={modalRef} closeFunction={(evt: React.MouseEvent<HTMLDivElement>) => { closeByClickOverlay(evt) }} />
-      <div className={popupStyles.modal} >
-        <div className={props.modalHeaderStyles} >
-          {props.headerText && <h2 className={props.modalStyles} >{props.headerText}</h2>}
-          <div className={popupStyles.popup__closeicon}><CloseIcon type='primary' onClick={props.closeModal} /></div>
+    <ModalOverlay onClose={onClose}>
+      <div className={style.popup} onClick={(e) => e.stopPropagation()}>
+        {title && (
+          <h2
+            className={`${style.popup__title} text text_type_main-large pr-10 mb-10`}
+          >
+            {title}
+          </h2>
+        )}
+        {children}
+        <div className={style.popup__close} onClick={onClose}>
+          <CloseIcon type="primary" />
         </div>
-        {props.children}
       </div>
-    </div>
-    ), modalRoot!)
-}
+    </ModalOverlay>,
+    modalRoot
+  );
+};
 
+export default Modal;

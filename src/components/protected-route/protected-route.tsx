@@ -1,20 +1,31 @@
-import { Route, Redirect } from "react-router-dom";
-import React, { FunctionComponent } from "react";
-import { IResetPageProps } from "../../utils/interfaces";
+import { Redirect, Route } from "react-router-dom";
+import { FC } from "react";
+import { RouteProps } from "react-router";
 
-
-
-export const ProtectedRoute: FunctionComponent<IResetPageProps> = ({ path, children, redirectPath, check }) => {
+export const ProtectedRoute: FC<
+  RouteProps & { user: { email: string; name: string } | null } & {
+    isUserLoaded: boolean;
+  }
+> = ({ children, user, isUserLoaded, ...rest }) => {
+  if (!isUserLoaded) {
+    return null;
+  }
 
   return (
-    <Route  path={path}  render={({ location }) => check ? (children) : (<Redirect to={{
-      pathname: redirectPath, state: { from: location }
-    }
-    } />)} />
-
-
-  )
-
-
-
-}
+    <Route
+      {...rest}
+      render={({ location }) =>
+        user ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};

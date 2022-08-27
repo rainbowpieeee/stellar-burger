@@ -1,18 +1,18 @@
-import { combineReducers } from 'redux';
-import { FeedReducer } from './feed-reducer';
-import { burgerDataReducer } from './burger-ingredients'
-import { ingredientReducer } from './ingredient';
-import { orderReducer } from './order-details';
-import { constructorReducer } from './burger-constructor';
-import { userDataReducer } from './user';
-import { userOrdersFeedReducer } from './authuser-orders-feed';
+import { combineReducers } from "redux";
+import { burgerIngredientsReducer } from "./burger-ingredients";
+import { burgerConstructorReducer } from "./burger-constructor";
+import { ingredientDetailsReducer } from "./ingredient-details";
+import { orderStateReducer } from "./order-details";
+import { userStateReducer } from "./user";
+import { feedReducer } from "./feed";
+import { myOrdersReducer } from "./my-orders";
 
 export const rootReducer = combineReducers({
-  burgerData: burgerDataReducer,
-  currentSelect: ingredientReducer,
-  currentOrder: orderReducer,
-  constructorState: constructorReducer,
-  userState: userDataReducer,
-  ordersFeed: FeedReducer,
-  userFeed: userOrdersFeedReducer
-})
+  burgerIngredients: burgerIngredientsReducer,
+  burgerConstructor: burgerConstructorReducer,
+  ingredientDetails: ingredientDetailsReducer,
+  orderInfo: orderStateReducer,
+  userInfo: userStateReducer,
+  feed: feedReducer,
+  myOrders: myOrdersReducer,
+});

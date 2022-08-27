@@ -1,0 +1,29 @@
+.sidebarMenu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.sidebarMenu__item {
+  margin-bottom: 16px;
+}
+
+.sidebarMenu__item:last-child {
+  margin-bottom: 0px;
+}
+
+.link {
+  color: #8585ad;
+  text-decoration: none;
+  font-family: "Jet Brains Mono";
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.link__active {
+  color: #f2f2f3;
+}

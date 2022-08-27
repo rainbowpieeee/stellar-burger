@@ -1,27 +1,8 @@
-.burger__tabs {
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-}
-
-.burger__ingredients {
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: calc(100vh - 303px);
-}
-
-.burger__nav {
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    padding: 0;
-}
-
-.modal__header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.burgerIngredients{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 600px;
+  height: calc(100vh - 284px);
+  overflow-y: scroll;
+  overflow-x: hidden;
 }

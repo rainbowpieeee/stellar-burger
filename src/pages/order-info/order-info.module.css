@@ -1,0 +1,11 @@
+.orderInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: calc(100vh - 88px);
+}
+
+.orderInfo > div:first-of-type > div:first-of-type p:first-of-type {
+  text-align: center;
+}

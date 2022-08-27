@@ -1,0 +1,9 @@
+.statusList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.statusList__item:not(:last-child) {
+  margin-bottom: 8px;
+}

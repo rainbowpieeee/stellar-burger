@@ -1,67 +1,51 @@
-import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR, OPEN_ORDER_POPUP, CLOSE_ORDER_POPUP } from "../constants";
-import { TOrderDetailsActions } from "../actions/order-details";
-import { TOrder } from '../types/data'
+import {
+  ORDER_REQUEST,
+  ORDER_SUCCESS,
+  ORDER_FAILED,
+  TOrderDetailsActions,
+} from "../action/order-details";
+import { TOrderSuccess } from "../types/data";
 
-type TOrderState = {
-  orderRequest: boolean,
-  requestIsSuccessed: boolean,
-  orderFailure: boolean,
-  orderNumber: number | null,
-  wholeOrder: TOrder | {},
-  orderButtonIsClicked: boolean,
-  buttonState: boolean;
-}
-
-const orderInitialState: TOrderState = {
+const orderInitState: TOrderSuccess & {
+  orderRequest: boolean;
+  orderFailed: boolean;
+} = {
   orderRequest: false,
-  requestIsSuccessed: false,
-  orderFailure: false,
-  orderNumber: null,
-  wholeOrder: {},
-  orderButtonIsClicked: false,
-  buttonState: true
-
-}
-
-
-export const orderReducer = (state = orderInitialState, action: TOrderDetailsActions): TOrderState => {
+  orderFailed: false,
+  order: { number: 0 },
+  success: false,
+  name: "",
+};
+export const orderStateReducer = (
+  state = orderInitState,
+  action: TOrderDetailsActions
+) => {
   switch (action.type) {
-    case OPEN_ORDER_POPUP:
+    case ORDER_REQUEST: {
       return {
         ...state,
-        orderButtonIsClicked: true,
-
-      }
-    case CLOSE_ORDER_POPUP:
+        orderRequest: true,
+        success: false,
+      };
+    }
+    case ORDER_SUCCESS: {
       return {
         ...state,
-        orderButtonIsClicked: false,
-        requestIsSuccessed: false,
-        orderNumber: null,
-        wholeOrder: {},
-        buttonState: false
-      }
-    case GET_ORDER_REQUEST:
-      return {
-        ...state,
-        orderRequest: true
-      }
-    case GET_ORDER_SUCCESS:
+        ...action.payload,
+        orderRequest: false,
+        orderFailed: false,
+      };
+    }
+    case ORDER_FAILED: {
       return {
         ...state,
         orderRequest: false,
-        orderNumber: action.data,
-        wholeOrder: action.orderData,
-        requestIsSuccessed: action.result,
-
-      }
-    case GET_ORDER_ERROR:
-      return {
-        ...state,
-        orderFailure: true,
-        orderNumber: null,
-      }
-    default:
-      return state
+        orderFailed: true,
+        success: false,
+      };
+    }
+    default: {
+      return state;
+    }
   }
-}
+};

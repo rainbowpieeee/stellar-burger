@@ -1,60 +1,56 @@
-import React, { FunctionComponent } from 'react';
-import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import itemStyles from './constructor-item.module.css';
-import { useDrag, useDrop } from 'react-dnd';
-import { REORDER_INGREDIENTS } from '../../services/constants/index'
-import { useDispatch, useSelector } from '../../services/types/hooks';
-import { IConstructorItem } from '../../utils/interfaces';
+import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC, useRef } from "react";
+import { useDrag, useDrop } from "react-dnd";
+import style from "./constructor-item.module.css";
+import CSS from "csstype";
+import { TIngredient, TConstructorItem } from "../../services/types/data";
 
-export const ConstructorItem: FunctionComponent<IConstructorItem> = (props) => {
-  const { elements } = useSelector(state => state.constructorState);
-  const ref = React.useRef<HTMLLIElement>(null);
-  const dispatch = useDispatch();
-  const { id, index } = props;
-
-  ///заменяем массив с новым порядком в стейте
-  function moveCard(dragIndex: number, hoverIndex: number) {
-    let newCards = [...elements];
-    let dragCard = newCards[dragIndex];
-    newCards.splice(dragIndex, 1);
-    newCards.splice(hoverIndex, 0, dragCard);
-    dispatch({ type: REORDER_INGREDIENTS, data: newCards });
-  }
-
-
-  const [{ opacity }, drag] = useDrag({
-    type: 'element',
-    item: { id, index },
-    collect: monitor => ({
-      opacity: monitor.isDragging() ? 0.5 : 1
-    })
-  })
-
+const ConstructorItem: FC<TConstructorItem> = ({
+  children,
+  moveItem,
+  index,
+  id,
+}) => {
+  const ref = useRef(null);
   const [{ isHover }, drop] = useDrop({
-    accept: 'element',
-    collect: monitor => ({ isHover: monitor.isOver() }),
-    hover(item: { id: number, index: number }) {
-      if (item.index === index) {
-        return;
-      }
+    accept: "constructorItem",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(item: TIngredient) {
       if (!ref.current) {
         return;
       }
-      moveCard(item.index, index);
-      item.index = index
-    }
-  })
-
-  const itemStyle = isHover ? itemStyles.constructoritem__hoverelement : itemStyles.constructoritem__element
-
-
-  drag(drop(ref))
-
+      const dragIndex = item.index!;
+      const hoverIndex = index;
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      moveItem(dragIndex, hoverIndex);
+      item.index = hoverIndex;
+    },
+  });
+  const [, drag] = useDrag({
+    type: "constructorItem",
+    item: () => {
+      return { id, index };
+    },
+  });
+  const styleHover: CSS.Properties | null = isHover
+    ? {
+        outline: "3px solid #8b00ff",
+        outlineOffset: "-3px",
+      }
+    : {};
+  drag(drop(ref));
   return (
-    <li ref={ref} className={`mt-4 ${itemStyle}`} style={{ opacity }}>
-      <DragIcon type='primary' />
-      {props.children}
+    <li ref={ref} className={style.burgerConstructorList__innerItem}>
+      <DragIcon type="primary" />
+      <div className={style.wrapperConstructorElement} style={styleHover}>
+        {children}
+      </div>
     </li>
-  )
-}
+  );
+};
 
+export default ConstructorItem;

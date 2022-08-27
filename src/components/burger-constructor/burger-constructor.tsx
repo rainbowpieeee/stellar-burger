@@ -1,107 +1,121 @@
-import consructorStyles from './burger-constructor.module.css';
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ConstructorItem } from '../constructor-item/constructor-item';
-import { OrderRegistration } from '../order-registration/order-registration';
-import { useDrop } from 'react-dnd';
-import { ADD_ITEM, ADD_BUN, DELETE_INGREDIENT, CLEAN_STATE } from '../../services/constants/index';
-import { ADD_AMMOUNT, DECREASE_AMOUNT, CLEAN_INGREDIENTS_AMOUNTS } from '../../services/constants/index';
-import { Modal } from '../modal/modal';
-import React, { FunctionComponent } from 'react';
-import { OrderDetails } from '../order-details/order-details';
-import { useSelector, useDispatch } from '../../services/types/hooks';
-import { OPEN_ORDER_POPUP, CLOSE_ORDER_POPUP } from '../../services/constants/index';
-import { getOrderNumber } from '../../services/actions/order-details';
-import { calculateCost } from '../../utils/utils';
-import { getCookie, refreshMainToken } from '../../utils/utils';
-import Api from '../../utils/Api';
-import { useHistory } from 'react-router-dom';
+import {
+  Button,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import style from "./burger-constructor.module.css";
+import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
+import { useState, useMemo, useEffect, FC, useCallback } from "react";
+import ConstructorList from "../constructor-list/constructor-list";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { sendOrderThunk } from "../../services/action/order-details";
+import { setDefaultValueIngredients } from "../../services/action/burger-constructor";
+import { resetQtyIngredients } from "../../services/action/burger-ingredients";
+import ErrorText from "../error-text/error-text";
+import { useHistory } from "react-router-dom";
 
+const initialStateButton = {
+  text: "Оформить заказ",
+  count: 3,
+};
 
-export const BurgerConstructor: FunctionComponent = () => {
+const BurgerConstructor: FC = () => {
+  const { ingredients } = useSelector((state) => state.burgerConstructor);
+  const { user } = useSelector((state) => state.userInfo);
   const history = useHistory();
+  const { orderRequest } = useSelector((state) => state.orderInfo);
+  const { success } = useSelector((state) => state.orderInfo);
+  const [textButton, seTextButton] = useState(initialStateButton);
+
+  const [show, setShow] = useState(false);
+  const total = useMemo(() => {
+    return ingredients.reduce((accumulator, element) => {
+      return element.type !== "bun"
+        ? (accumulator += element.price)
+        : (accumulator += element.price * 2);
+    }, 0);
+  }, [ingredients]);
+
   const dispatch = useDispatch();
-  const { orderButtonIsClicked, requestIsSuccessed, orderNumber } = useSelector(state => state.currentOrder);
-  const { ingredients } = useSelector(state => state.burgerData);
-  const { elements, bun } = useSelector(state => state.constructorState);
 
-  const token = getCookie('token')
-  const refresh = getCookie('refreshToken')
-  ///вычисляем значения для ключей
-  function uid(): number {
-    return Date.now() * Math.random()
-  }
+  const idIngredientList = useSelector((state) => {
+    const listIngredients = state.burgerConstructor.ingredients;
+    const idList = listIngredients.map((item) => {
+      return item._id;
+    });
 
-  const [{ isDrag }, dropTarget] = useDrop({
-    accept: 'item',
-    collect: monitor => ({
-      isDrag: monitor.canDrop()
-    }),
-    drop(itemId: { id: string }) {
-      dispatch({
-        type: ADD_ITEM, data: ingredients.filter(item => {
-          return item._id === itemId.id && item.type !== 'bun'
-        }).map((item) => { return { ...item, uid: uid() } })
-      })
-      dispatch({
-        type: ADD_BUN, bunItem: ingredients.find(item => {
-          return item._id === itemId.id && item.type === 'bun'
-        })
-      })
-      dispatch({ type: ADD_AMMOUNT, id: itemId.id })
-    }
+    return idList;
   });
 
-  ///удаляем ингредиент из конструктора и меняем значение счетчика
-  const itemRemove = React.useCallback((itemKey: number, itemId: string) => {
-    dispatch({ type: DELETE_INGREDIENT, id: itemKey });
-    dispatch({ type: DECREASE_AMOUNT, id: itemId });
-  }, [dispatch])
+  const orderNumber = useSelector((state) => state.orderInfo.order.number);
+  const orderFailed = useSelector((state) => state.orderInfo.orderFailed);
 
-  ///логика открытия попапа с номером заказа
-  const orderDetailsRequestSending = () => {
+  const handlerOrder = useCallback(() => {
+    if (!user) {
+      history.push({
+        pathname: "/login",
+      });
+      return;
+    }
+    setShow(true);
+    dispatch(sendOrderThunk(idIngredientList));
+  }, [dispatch, history, idIngredientList, user]);
 
-
-    const idArray = elements.map(item => { return item._id })
-    dispatch({ type: OPEN_ORDER_POPUP });
-    dispatch(getOrderNumber([...idArray, bun._id], token, refresh, refreshMainToken));
-
-
-  }
-
-  ///логика закрытия попапа
-  const orderPopupClose = React.useCallback(() => {
-    dispatch({ type: CLOSE_ORDER_POPUP });
-    dispatch({ type: CLEAN_STATE });
-    dispatch({ type: CLEAN_INGREDIENTS_AMOUNTS })
-  }, [dispatch])
-
-  const style = isDrag ? consructorStyles.burgerconstructor__dropconteiner : consructorStyles.burgerconstructor__conteiner
-  const cartStyle = elements.length >= 6 ? consructorStyles.burgerconstructor__elementswithscroll : consructorStyles.burgerconstructor__elements
-
-
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+    if (orderRequest) {
+      seTextButton({
+        text: "Ждите",
+        count: initialStateButton.count,
+      });
+      interval = setInterval(() => {
+        seTextButton((prevState) => ({
+          count:
+            prevState.count === 0
+              ? initialStateButton.count
+              : prevState.count - 1,
+          text: prevState.count === 0 ? "Ждите" : prevState.text + ".",
+        }));
+      }, 1000);
+    } else {
+      seTextButton(initialStateButton);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [orderRequest]);
 
   return (
-    elements && <div ref={dropTarget} className={`pl-4   ml-10 pt-25 ${style}`}>
-      {bun && bun._id && Array.of(bun).map((item, index) => (
-        <ConstructorElement key={index} type="top" isLocked={true} text={`${item.name} (верх)`} price={item.price} thumbnail={item.image_mobile} />
-      ))
-      }
-      <ul className={`pr-4 mr-4 ${cartStyle}`}>
-        {elements.filter(item => { return item.type !== 'bun' }).map((item, index) => (
-          <ConstructorItem id={item.uid} index={index} key={item.uid}>
-            <ConstructorElement text={item.name} thumbnail={item.image_mobile} price={item.price} handleClose={() => itemRemove(item.uid, item._id)} />
-          </ConstructorItem>))}
-      </ul>
-      {bun && bun._id && Array.of(bun).map((item, index) => (
-        <ConstructorElement key={index} type="bottom" isLocked={true} text={`${item.name} (низ)`} price={item.price} thumbnail={item.image_mobile} />))}
-      <OrderRegistration clickHandler={() => {
-        getCookie('refreshToken') === undefined ? history.replace({ pathname: '/login' }) : orderDetailsRequestSending()
-      }} styles={`mt-10 ${consructorStyles.burgerconstructor__cost}`} cost={calculateCost(elements, bun.price)} />
-      {orderButtonIsClicked && requestIsSuccessed && <Modal closeModal={orderPopupClose} modalHeaderStyles={consructorStyles.burgerconstructor__modalheader}><OrderDetails number={orderNumber} /></Modal>}
-    </div >
+    <section className={`${style.burgerConstructor} pl-4 pr-4`}>
+      <ConstructorList ingredientList={ingredients} />
+      {orderFailed ? <ErrorText text={"Ошибка при оформлении заказа"} /> : null}
+      <div className={style.burgerConstructor__total}>
+        <p className="text text_type_digits-medium pr-2">{total}</p>
+        <CurrencyIcon type="primary" />
+        <div className={`${style.buttonOrder} pl-10`}>
+          <Button
+            disabled={!total || orderRequest}
+            onClick={handlerOrder}
+            type="primary"
+            size="large"
+          >
+            {textButton.text}
+          </Button>
+        </div>
+      </div>
+      {success && show && (
+        <Modal
+          onClose={() => {
+            setShow(false);
+            dispatch(setDefaultValueIngredients());
+            dispatch(resetQtyIngredients());
+          }}
+        >
+          <OrderDetails order={orderNumber} />
+        </Modal>
+      )}
+    </section>
+  );
+};
 
-
-  )
-}
-
-
+export default BurgerConstructor;

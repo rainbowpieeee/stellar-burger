@@ -1,52 +1,30 @@
-import React, { FunctionComponent } from "react";
-import cardStyles from './ingredient.module.css';
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IIngredient } from "../../utils/interfaces";
-import { useDispatch, useSelector } from '../../services/types/hooks';
-import { CLICK_ON_INGREDIENT } from "../../services/constants/index";
+import {
+  CurrencyIcon,
+  Counter,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import styles from "./ingredient.module.css";
+import { FC, memo } from "react";
+import { TIngredient } from "../../services/types/data";
 
-const Ingredient: FunctionComponent<IIngredient> = (props) => {
-  const { id, elements, bun } = props
-  const { ingredients } = useSelector(state => state.burgerData)
-
-
-  const dispatch = useDispatch();
-  const location = useLocation();
+const Ingredient: FC<{ data: TIngredient }> = memo(({ data }) => {
+  const { image, name, price, qty } = data;
 
   const [, dragRef] = useDrag({
-    type: 'item',
-    item: { id }
-  })
-  ////находим ингредиент который выбрали
-  function selectIngredient(evt: React.MouseEvent, data: typeof ingredients) {
-    return data.filter(item => {
-      return item._id === evt.currentTarget.id
-    })
-
-  }
-
+    type: "ingredient",
+    item: data,
+  });
   return (
-    <Link className={cardStyles.link} to={{
-      pathname: `/ingredients/${props.id}`,
-      state: { background: location }
-    }} >
-      <li ref={dragRef} id={props.id} className={cardStyles.ingredient__item} onClick={(evt) => { dispatch({ type: CLICK_ON_INGREDIENT, item: selectIngredient(evt, ingredients) }) }}   >
-        {!!props.amount && !!elements.length && <Counter count={props.amount} size="default" />}
-        {!!bun.amount && props.type === 'bun' && bun._id === id && !!bun && <Counter count={bun.amount} size="default" />}
-        <img className={`mb-1 pl-4 pr-4  ${cardStyles.ingredient__image}`} src={props.image} alt={props.name} />
-        <div className={`mb-1 ${cardStyles.ingredient__info}`} >
-          <p className='mr-1 text text_type_digits-default'>{props.price}</p>
-          <CurrencyIcon type="primary" />
-        </div>
-        <p className={`mt-1 text text_type_main-default ${cardStyles.ingredient__text}`}>{props.name}</p>
-      </li>
-    </Link>
-  )
-}
+    <div ref={dragRef}>
+      {qty && <Counter count={qty} size="default" />}
+      <img src={image} alt={name} className="pl-4 pb-1 pr-4" />
+      <div className={styles.card__prics}>
+        <p className="text text_type_digits-default pb-1 pr-2">{price}</p>
+        <CurrencyIcon type="primary" />
+      </div>
+      <p className="pt-2 text text_type_main-default">{name}</p>
+    </div>
+  );
+});
 
-
-
-export default React.memo(Ingredient)
+export default Ingredient;

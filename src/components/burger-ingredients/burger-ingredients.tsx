@@ -1,65 +1,102 @@
-import React, { FunctionComponent } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredientsStyles from './burger-ingredients.module.css';
-import { IngredientType } from '../ingredient-type/ingredient-type';
-import { useSelector } from '../../services/types/hooks';
+import { useState, useRef, FC, useCallback, RefObject } from "react";
+import IngredientList from "../ingredient-list/ingredient-list";
+import style from "./burger-ingredients.module.css";
+import { useSelector } from "../../services/hooks";
+import { TIngredientType } from "../../services/types/data";
 
+const BurgerIngredients: FC = () => {
+  const [current, setCurrent] = useState<TIngredientType>("bun");
+  const refBunDiv = useRef<HTMLDivElement>(null);
+  const refSauceDiv = useRef<HTMLDivElement>(null);
+  const refMainDiv = useRef<HTMLDivElement>(null);
 
-export const BurgerIngredients: FunctionComponent = () => {
+  const BUN: TIngredientType = "bun";
+  const SAUCE: TIngredientType = "sauce";
+  const MAIN: TIngredientType = "main";
 
-  const { ingredients } = useSelector(state => state.burgerData);
+  const { burgerIngredients } = useSelector((state) => state.burgerIngredients);
 
+  const handleTab = useCallback(
+    (value: TIngredientType, element: RefObject<HTMLElement>) => {
+      setCurrent(value);
+      element?.current?.scrollIntoView({ behavior: "smooth" });
+    },
+    []
+  );
 
-  const [current, setCurrent] = React.useState('Булки')
-  const bunsRef = React.useRef<HTMLDivElement>(null);
-  const soucesRef = React.useRef<HTMLDivElement>(null);
-  const fillingsRef = React.useRef<HTMLDivElement>(null);
-
-  ///вычисляем где сейчас находится скролл и подсвечиваем нужный Tab
-  function determineElementPosition(e: React.ChangeEvent<HTMLDivElement>) {
-    const scrollPosition = e.target.scrollTop;
-    const positionOfSouceContainer = soucesRef.current !== null && soucesRef.current.offsetTop;
-    const positionofFillingsContainer = fillingsRef.current !== null && fillingsRef.current.offsetTop;
-    if (scrollPosition + 303 <= positionOfSouceContainer) {
-      setCurrent('Булки');
-    }
-    else if (scrollPosition + 303 <= positionofFillingsContainer) {
-      setCurrent('Соусы');
-    } else {
-      setCurrent('Начинки');
-    }
-  }
+  const handlerScroll: React.EventHandler<React.UIEvent<HTMLDivElement>> =
+    useCallback((e: React.UIEvent<HTMLElement>) => {
+      if (refBunDiv.current === null || refSauceDiv.current === null) return;
+      const scrollTop = (e.target as HTMLElement).scrollTop;
+      const posOfSectionBun = refBunDiv.current.offsetTop;
+      const posOfSauceBun = refSauceDiv.current.offsetTop;
+      if (scrollTop + 40 <= posOfSectionBun) {
+        setCurrent(BUN);
+      } else if (scrollTop - 170 <= posOfSauceBun) {
+        setCurrent(SAUCE);
+      } else {
+        setCurrent(MAIN);
+      }
+    }, []);
 
   return (
-
-    <div className={ingredientsStyles.burger__tabs}>
-      <h1 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h1>
-      <ul className={`mb-10 ${ingredientsStyles.burger__nav}`}>
-        <li>
-          <Tab value="Булки" active={current === 'Булки'} onClick={(value) => { setCurrent(value); bunsRef.current !== null && bunsRef.current.scrollIntoView({ behavior: "smooth", }) }} >
-            Булки
-          </Tab>
-        </li>
-        <li>
-          <Tab value="Соусы" active={current === 'Соусы'} onClick={(value) => { setCurrent(value); soucesRef.current !== null && soucesRef.current.scrollIntoView({ behavior: "smooth", }) }}>
-            Соусы
-          </Tab>
-        </li>
-        <li>
-          <Tab value="Начинки" active={current === 'Начинки'} onClick={(value) => { setCurrent(value); fillingsRef.current !== null && fillingsRef.current.scrollIntoView({ behavior: "smooth", }) }}>
-            Начинки
-          </Tab>
-        </li>
-      </ul>
-      <div className={ingredientsStyles.burger__ingredients} onScroll={(e: any) => { determineElementPosition(e) }}>
-        <IngredientType ingredientName='Булки' data={ingredients.filter(item => item.type === 'bun')} ref={bunsRef} />
-        <IngredientType ingredientName='Соусы' data={ingredients.filter(item => item.type === 'sauce')} ref={soucesRef} />
-        <IngredientType ingredientName='Начинки' data={ingredients.filter(item => item.type === 'main')} ref={fillingsRef} />
+    <section>
+      <h1 className="text text_type_main-large pt-10 pb-5">Соберите бургер</h1>
+      <div style={{ display: "flex" }}>
+        <Tab
+          value={BUN}
+          active={current === BUN}
+          onClick={() => {
+            handleTab(BUN, refBunDiv);
+          }}
+        >
+          Булки
+        </Tab>
+        <Tab
+          value={SAUCE}
+          active={current === SAUCE}
+          onClick={() => {
+            handleTab(SAUCE, refSauceDiv);
+          }}
+        >
+          Соусы
+        </Tab>
+        <Tab
+          value={MAIN}
+          active={current === MAIN}
+          onClick={() => {
+            handleTab(MAIN, refMainDiv);
+          }}
+        >
+          Начинки
+        </Tab>
       </div>
+      <div
+        className={`${style.burgerIngredients} mt-10`}
+        onScroll={handlerScroll}
+      >
+        <IngredientList
+          list={burgerIngredients}
+          typeCard="bun"
+          title="Булки"
+          ref={refBunDiv}
+        />
+        <IngredientList
+          list={burgerIngredients}
+          typeCard="sauce"
+          title="Соусы"
+          ref={refSauceDiv}
+        />
+        <IngredientList
+          list={burgerIngredients}
+          typeCard="main"
+          title="Начинки"
+          ref={refMainDiv}
+        />
+      </div>
+    </section>
+  );
+};
 
-    </div>
-  )
-}
-
-
-
+export default BurgerIngredients;

@@ -1,11 +1,5 @@
-.order__conteiner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.order__closebutton {
-    position: absolute;
-    top: 60px;
-    right: 40px;
+.orderDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -1,20 +1,22 @@
-import orderDetailsStyles from './order-details.module.css';
-import orderDoneImage from '../../images/done.svg';
-import { FunctionComponent } from 'react';
-import { IOrderDetails } from '../../utils/interfaces';
+import style from "./order-details.module.css";
+import orderDone from "../../images/orderDone.svg";
+import { FC } from "react";
+import { TOrderDetails } from "../../services/types/data";
 
-export const OrderDetails: FunctionComponent<IOrderDetails> = (props) => {
-
+const OrderDetails: FC<TOrderDetails> = ({ order }) => {
   return (
-    <div className={`${orderDetailsStyles.order__conteiner} mt-30 mb-30`}>
-      <h3 className='mb-8 text text_type_digits-large'>{props.number}</h3>
-      <span className='text text_type_main-medium mb-15'>идентификатор заказа</span>
-      <img src={orderDoneImage} alt='готово' />
-      <p className='text text_type_main-default mt-15'>Ваш заказ начали готовить</p>
-      <span className='text text_type_main-default text_color_inactive mt-2'>Дождитесь готовности на орбитальной станции</span>
+    <div className={`${style.orderDetails} pt-20 pl-25 pr-25`}>
+      <h2 className="text text_type_digits-large pb-8">{order}</h2>
+      <p className="pb-20 text text_type_main-medium">идентификатор заказа</p>
+      <img className="pb-15" src={orderDone} alt="Заказ Выполнен" />
+      <p className="pb-2 text text_type_main-small">
+        Ваш заказ начали готовить
+      </p>
+      <p className="pb-30 text text_type_main-small">
+        Дождитесь готовности на орбитальной станции
+      </p>
     </div>
+  );
+};
 
-  )
-}
-
-
+export default OrderDetails;
