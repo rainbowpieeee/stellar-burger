@@ -1,28 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.cf970b82.chunk.css",
-    "main.js": "/static/js/main.595fdffb.chunk.js",
-    "main.js.map": "/static/js/main.595fdffb.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.8f9ae5b3.js",
-    "runtime-main.js.map": "/static/js/runtime-main.8f9ae5b3.js.map",
-    "static/css/2.625db73a.chunk.css": "/static/css/2.625db73a.chunk.css",
-    "static/js/2.e709ead0.chunk.js": "/static/js/2.e709ead0.chunk.js",
-    "static/js/2.e709ead0.chunk.js.map": "/static/js/2.e709ead0.chunk.js.map",
-    "static/js/3.d58bc971.chunk.js": "/static/js/3.d58bc971.chunk.js",
-    "static/js/3.d58bc971.chunk.js.map": "/static/js/3.d58bc971.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/2.625db73a.chunk.css.map": "/static/css/2.625db73a.chunk.css.map",
-    "static/css/main.cf970b82.chunk.css.map": "/static/css/main.cf970b82.chunk.css.map",
-    "static/js/2.e709ead0.chunk.js.LICENSE.txt": "/static/js/2.e709ead0.chunk.js.LICENSE.txt",
-    "static/media/fonts.css": "/static/media/iceland.77ad7fc2.woff",
-    "static/media/Subtract.c76f6647.svg": "/static/media/Subtract.c76f6647.svg",
-    "static/media/done.fd977731.svg": "/static/media/done.fd977731.svg"
+    "main.css": "/stellar-burger/static/css/main.c04b96a0.chunk.css",
+    "main.js": "/stellar-burger/static/js/main.a7715c88.chunk.js",
+    "main.js.map": "/stellar-burger/static/js/main.a7715c88.chunk.js.map",
+    "runtime-main.js": "/stellar-burger/static/js/runtime-main.62898755.js",
+    "runtime-main.js.map": "/stellar-burger/static/js/runtime-main.62898755.js.map",
+    "static/css/2.d0550d56.chunk.css": "/stellar-burger/static/css/2.d0550d56.chunk.css",
+    "static/js/2.22304b76.chunk.js": "/stellar-burger/static/js/2.22304b76.chunk.js",
+    "static/js/2.22304b76.chunk.js.map": "/stellar-burger/static/js/2.22304b76.chunk.js.map",
+    "index.html": "/stellar-burger/index.html",
+    "static/css/2.d0550d56.chunk.css.map": "/stellar-burger/static/css/2.d0550d56.chunk.css.map",
+    "static/css/main.c04b96a0.chunk.css.map": "/stellar-burger/static/css/main.c04b96a0.chunk.css.map",
+    "static/js/2.22304b76.chunk.js.LICENSE.txt": "/stellar-burger/static/js/2.22304b76.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "/stellar-burger/static/media/iceland.77ad7fc2.woff",
+    "static/media/orderDone.6d4020a5.svg": "/stellar-burger/static/media/orderDone.6d4020a5.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.8f9ae5b3.js",
-    "static/css/2.625db73a.chunk.css",
-    "static/js/2.e709ead0.chunk.js",
-    "static/css/main.cf970b82.chunk.css",
-    "static/js/main.595fdffb.chunk.js"
+    "static/js/runtime-main.62898755.js",
+    "static/css/2.d0550d56.chunk.css",
+    "static/js/2.22304b76.chunk.js",
+    "static/css/main.c04b96a0.chunk.css",
+    "static/js/main.a7715c88.chunk.js"
   ]
 }
