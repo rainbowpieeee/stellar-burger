@@ -1,0 +1,60 @@
+.cardOrder {
+  width: 584px;
+  background: #1c1c21;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+}
+
+.cardOrder_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px 0px;
+  padding: 24px;
+}
+
+.cardOrder__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cardOrder__orderNumber {
+  margin: 0;
+  padding: 0;
+}
+
+.cardOrder__dateNumber {
+  margin: 0;
+  padding: 0;
+}
+
+.cardOrder__name {
+  margin: 0;
+  padding: 0;
+}
+
+.cardOrder__total {
+  display: flex;
+}
+
+.cardOrder__orderDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardOrder__listIngredients {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cardOrder__listIngredientItem {
+  display: flex;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+}

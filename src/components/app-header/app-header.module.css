@@ -1,0 +1,49 @@
+.header {
+  background-color: #1c1c21;
+}
+
+.headerContent {
+  max-width: 1208px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.menu {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.menu__list {
+  display: flex;
+  padding: 0;
+}
+
+.menu__item {
+  display: flex;
+  list-style: none;
+}
+
+.account {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.logo {
+  flex: 1;
+  justify-content: center;
+  display: flex;
+}
+
+.linkHeader {
+  text-decoration: none;
+  display: flex;
+  color: #8585ad;
+}
+
+.linkHeader__active {
+  color: #f2f2f3;
+}

@@ -1,0 +1,18 @@
+.profile {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 1208px;
+  margin: 0 auto;
+}
+
+.profile__container {
+}
+
+.profile__wrapper {
+  display: flex;
+  gap: 0 60px;
+}
+
+.profileForm {
+  margin-top: 120px;
+}

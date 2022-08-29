@@ -1,0 +1,8 @@
+.burgerIngredients{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 600px;
+  height: calc(100vh - 284px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

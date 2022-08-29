@@ -1,0 +1,24 @@
+.orderList {
+  list-style: none;
+  width: 640px;
+  height: 312px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  margin: 0;
+}
+
+.orderList__item {
+  display: flex;
+  align-items: center;
+}
+
+.orderList__item:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.orderList__total {
+  display: flex;
+  margin-left: auto;
+  padding-right: 24px;
+}

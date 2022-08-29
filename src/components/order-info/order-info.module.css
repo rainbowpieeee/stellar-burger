@@ -1,0 +1,16 @@
+.status {
+  color: #00cccc;
+}
+
+.orderInfo__main {
+  margin-bottom: 40px;
+}
+
+.orderInfo__total {
+  display: flex;
+}
+
+.orderInfo__footer {
+  display: flex;
+  justify-content: space-between;
+}

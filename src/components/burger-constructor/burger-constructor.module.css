@@ -1,0 +1,22 @@
+.burgerConstructor {
+  max-width: 592px;
+  width: 100%;
+  position: relative;
+}
+.burgerConstructor__total {
+  align-items: center;
+  justify-content: flex-end;
+  display: flex;
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+}
+
+.burgerConstructor__total svg {
+  height: 33px;
+  width: 33px;
+}
+
+.buttonOrder > button{
+  min-width: 214px;
+}

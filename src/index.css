@@ -1,13 +1,92 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+::-webkit-scrollbar {
+  width: 8px;
+  background: #2f2f37;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
+
+.textShadow {
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.fieldset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 0;
+  min-width: 480px;
+  gap: 24px 0;
+}
+
+/*
+  В компонент инпут нельзя прокинуть стили,
+  а по дефолту их длина фиксированная
+*/
+fieldset > div {
+  width: 100% !important;
+}
+
+fieldset > div > div {
+  width: inherit !important;
+}
+
+.button {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.button__group {
+  display: flex;
+  justify-content: space-around;
+}
+
+.link {
+  font-family: "Jet Brains Mono";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #4c4cff;
+  text-decoration: none;
+}
+
+.registrationNav {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  list-style-type: none;
+  gap: 16px 0;
+  padding: 0;
+  margin: 0;
+}
+
+.registrationNav__item {
+  display: flex;
+  gap: 0px 8px;
+}
+
+
+.sidebarLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarLeft__wrapper {
+  margin-top: 120px;
+}
+
+.aboutPage {
+  max-width: 320px;
+  opacity: 0.4;
+}
+
+#modal {
+  position: relative;
+  z-index: 99;
 }

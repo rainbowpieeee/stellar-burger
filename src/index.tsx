@@ -1,17 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./components/app/app";
+import { Provider } from "react-redux";
+import store from "./services/store";
+import { HashRouter  as Router } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-    <Button type="primary" size="medium">
-      Я кнопка из UI системы Yandex
-    </Button>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-reportWebVitals();
