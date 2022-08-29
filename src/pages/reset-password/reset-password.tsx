@@ -5,9 +5,8 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
 import { confirmResetPassThunk } from "../../services/action/user";
-import { useSelector } from "../../services/hooks";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { Location } from "history";
 
 const ResetPasswordPage: FC = () => {
